@@ -1,0 +1,116 @@
+import java.awt.*;  
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Ex4 extends JFrame implements ActionListener,MouseListener{
+
+JLabel label ;
+JMenuItem jMenuItemFile1;
+JMenuItem jMenuItemFile2 ;
+JMenuItem jMenuItemFile3 ;
+JMenuItem jMenuItemFile4;
+
+JButton jButtonSave ;
+
+public Ex4() {
+
+this.setTitle("Tp3 Ex4 ");
+this.setSize(700,400);
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
+this.setLocationRelativeTo(null);
+
+JMenuBar jMenuBar = new JMenuBar();
+JToolBar jToolBar = new JToolBar();
+JMenu jMenuEdition = new JMenu("Edition");
+jMenuItemFile1 = new JMenuItem("file1");
+jMenuItemFile2 = new JMenuItem("file2");
+jMenuItemFile3 = new JMenuItem("file3");
+jMenuItemFile4 = new JMenuItem("file4");
+
+
+jMenuItemFile1.addActionListener(this);
+jMenuItemFile2.addActionListener(this);
+jMenuItemFile3.addActionListener(this);
+jMenuItemFile4.addActionListener(this);
+jMenuBar.add(jMenuEdition);
+jMenuEdition.add(jMenuItemFile1);
+jMenuEdition.add(jMenuItemFile2);
+jMenuEdition.add(jMenuItemFile3);
+jMenuEdition.add(jMenuItemFile4);
+this.setJMenuBar(jMenuBar);
+JPanel jPanel = new JPanel();
+
+AbstractAction abstractActionSave = new AbstractAction("Save") {
+public void actionPerformed(ActionEvent e) {
+
+ImageIcon icon = new ImageIcon("a.jpg");
+            label.setIcon(icon);
+System.out.println("Save");
+
+}
+};
+
+jButtonSave = new JButton("Basculer");
+jButtonSave.addMouseListener(this);
+// jMenuItemSave.setAction(abstractActionSave);
+jToolBar.addSeparator(new Dimension(50,10));
+jToolBar.add(abstractActionSave);
+jPanel.add(jButtonSave);
+this.add(jToolBar,"North");
+label = new JLabel(new ImageIcon("nature.jpg"));
+
+jPanel.add(label,"Centre");
+this.add(jPanel);
+this.setVisible(true);
+}
+
+public void actionPerformed(ActionEvent e) {
+       
+        if  (e.getSource()==jMenuItemFile1){
+            System.out.println("btn1 : natrure");
+            ImageIcon icon = new ImageIcon("nature.jpg");
+            label.setIcon(icon);}
+       else if(e.getSource()==jMenuItemFile2){
+            System.out.println("btn2 : Tree");
+            ImageIcon icon = new ImageIcon("tree.jpg");
+            label.setIcon(icon);
+       }
+       else if(e.getSource()==jMenuItemFile3){
+            System.out.println("btn3 : flower");
+            ImageIcon icon = new ImageIcon("flower.jpg");
+            label.setIcon(icon);
+       }
+       else if(e.getSource()==jMenuItemFile4){
+            System.out.println("btn4 : sky");
+        ImageIcon icon = new ImageIcon("sky.jpg");
+            label.setIcon(icon);
+       }
+}
+
+public void mouseClicked(MouseEvent e) {
+if(e.getSource()==jButtonSave){
+System.out.println("Skyyyy");
+       ImageIcon icon = new ImageIcon("sky.jpg");
+            label.setIcon(icon);}
+            }
+public void mouseEntered(MouseEvent e) {
+if(e.getSource()==jButtonSave){
+System.out.println("Flowwww");
+       ImageIcon icon = new ImageIcon("flower.jpg");
+            label.setIcon(icon);}
+            }
+public void mouseExited(MouseEvent e) {
+if(e.getSource()==jButtonSave){
+System.out.println("Treeeeee");
+       ImageIcon icon = new ImageIcon("tree.jpg");
+            label.setIcon(icon);}
+            }
+           
+public void mousePressed(MouseEvent e) {
+if(e.getSource()==jButtonSave){
+System.out.println("Natureeeeee");
+       ImageIcon icon = new ImageIcon("nature.jpg");
+            label.setIcon(icon);}
+            }
+public void mouseReleased(MouseEvent e) {}
+

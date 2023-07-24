@@ -1,0 +1,228 @@
+
+C:\oraclexe\app\oracle\product\11.2.0\server\bin>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mar. Oct. 22 10:47:41 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: sys as sysdba
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> v$logfile
+SP2-0042: unknown command "v$logfile" - rest of line ignored.
+SQL> V$LOGFILE
+SP2-0042: unknown command "V$LOGFILE" - rest of line ignored.
+SQL> DESC V$DATAFILE
+ERROR:
+ORA-03113: end-of-file on communication channel
+Process ID: 10832
+Session ID: 148 Serial number: 3
+
+
+SQL> DESC V$LOGFILE
+ERROR:
+ORA-03114: not connected to ORACLE
+Process ID: 10832
+Session ID: 148 Serial number: 3
+
+
+SQL> DESC v$instance;
+ERROR:
+ORA-03114: not connected to ORACLE
+Process ID: 10832
+Session ID: 148 Serial number: 3
+
+
+SQL> connect
+Enter user-name: sys as sysdba
+Enter password:
+Connected.
+SQL> desc v$instance;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INSTANCE_NUMBER                                    NUMBER
+ INSTANCE_NAME                                      VARCHAR2(16)
+ HOST_NAME                                          VARCHAR2(64)
+ VERSION                                            VARCHAR2(17)
+ STARTUP_TIME                                       DATE
+ STATUS                                             VARCHAR2(12)
+ PARALLEL                                           VARCHAR2(3)
+ THREAD#                                            NUMBER
+ ARCHIVER                                           VARCHAR2(7)
+ LOG_SWITCH_WAIT                                    VARCHAR2(15)
+ LOGINS                                             VARCHAR2(10)
+ SHUTDOWN_PENDING                                   VARCHAR2(3)
+ DATABASE_STATUS                                    VARCHAR2(17)
+ INSTANCE_ROLE                                      VARCHAR2(18)
+ ACTIVE_STATE                                       VARCHAR2(9)
+ BLOCKED                                            VARCHAR2(3)
+ EDITION                                            VARCHAR2(7)
+
+SQL> select status, database_status from v$instance;
+
+STATUS       DATABASE_STATUS
+------------ -----------------
+OPEN         ACTIVE
+
+SQL> select name, open_mode from v$database;
+
+NAME      OPEN_MODE
+--------- --------------------
+XE        READ WRITE
+
+SQL> select name from v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+C:\ORACLEXE\APP\ORACLE\ORADATA\XE\SYSTEM.DBF
+C:\ORACLEXE\APP\ORACLE\ORADATA\XE\SYSAUX.DBF
+C:\ORACLEXE\APP\ORACLE\ORADATA\XE\UNDOTBS1.DBF
+C:\ORACLEXE\APP\ORACLE\ORADATA\XE\USERS.DBF
+
+SQL> select count (member) from v$logfile;
+
+COUNT(MEMBER)
+-------------
+            2
+
+SQL> show parameter spfile
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+spfile                               string      C:\ORACLEXE\APP\ORACLE\PRODUCT
+                                                 \11.2.0\SERVER\DBS\SPFILEXE.OR
+                                                 A
+SQL>
+
+
+C:\oraclexe\app\oracle\product\11.2.0\server\bin>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mar. Oct. 22 11:32:50 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: sys as sysdba
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> connect
+Enter user-name: sys as sysdba
+Enter password:
+Connected.
+SQL> connect hr/hr
+ERROR:
+ORA-28000: the account is locked
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> alter databse open;
+SP2-0640: Not connected
+SQL> alter database open ;
+SP2-0640: Not connected
+SQL> alter database open;
+SP2-0640: Not connected
+SQL> connect
+Enter user-name: sys as sysdba
+Enter password:
+Connected.
+SQL> alter database open;
+alter database open
+*
+ERROR at line 1:
+ORA-01531: a database already open by the instance
+
+
+SQL> shutdown immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup open read only;
+ORACLE instance started.
+
+Total System Global Area 1068937216 bytes
+Fixed Size                  2260048 bytes
+Variable Size             616563632 bytes
+Database Buffers          444596224 bytes
+Redo Buffers                5517312 bytes
+Database mounted.
+Database opened.
+SQL> alter system enable restricted session;
+
+System altered.
+
+SQL> shutdown immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup open read right;
+SP2-0714: invalid combination of STARTUP options
+SQL> startup open read write;
+ORACLE instance started.
+
+Total System Global Area 1068937216 bytes
+Fixed Size                  2260048 bytes
+Variable Size             616563632 bytes
+Database Buffers          444596224 bytes
+Redo Buffers                5517312 bytes
+Database mounted.
+Database opened.
+SQL> disconnect
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+SQL> connect hr/hr
+ERROR:
+ORA-28000: the account is locked
+
+
+SQL> connect
+Enter user-name: sys as sysdba
+Enter password:
+Connected.
+SQL> alter user hr account  unlocked;
+alter user hr account  unlocked
+                       *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> alter user hr account unlocked;
+alter user hr account unlocked
+                      *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> alter user hr account unlocke;
+alter user hr account unlocke
+                      *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> alter user hr account unlock;
+
+User altered.
+
+SQL> connect hr/hr
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> disconnect
+SQL> connect hr/hr
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> connect HR/HR
+ERROR:
+ORA-28001: the password has expired
+
+
+Changing password for HR
+New password:
